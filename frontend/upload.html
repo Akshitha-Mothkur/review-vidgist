@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Audio Transcription Upload</title>
+</head>
+<body>
+  <h2>Upload an Audio File for Transcription</h2>
+
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" name="audio" accept="audio/*" required>
+    <button type="submit">Upload & Transcribe</button>
+  </form>
+
+  <h3>Transcript:</h3>
+  <pre id="transcript"></pre>
+
+  <script>
+    const form = document.getElementById("uploadForm");
+    const transcriptDisplay = document.getElementById("transcript");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch("http://localhost:5000/api/transcribe", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await response.json();
+        if (data.transcript) {
+          transcriptDisplay.textContent = data.transcript;
+        } else {
+          transcriptDisplay.textContent = "Error: " + (data.error || "Unknown error");
+        }
+      } catch (err) {
+        transcriptDisplay.textContent = "Error sending request.";
+      }
+    });
+  </script>
+</body>
+</html>
