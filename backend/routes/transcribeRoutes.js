@@ -12,6 +12,24 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage });
+const { downloadAudioFromYouTube } = require('../controllers/transcribeController');
+
+// POST /api/youtube-to-transcript
+router.post('/youtube-to-transcript', async (req, res) => {
+  console.log("📩 POST /youtube-to-transcript hit");
+
+  const { youtubeUrl } = req.body;
+  console.log("🎥 YouTube URL:", youtubeUrl);
+
+  try {
+    const audioPath = await downloadAudioFromYouTube(youtubeUrl);
+    const transcript = await runWhisper(audioPath);
+    res.json({ transcript });
+  } catch (error) {
+    console.error("❌ Error processing video:", error);
+    res.status(500).json({ error: 'Failed to process YouTube video' });
+  }
+});
 
 // POST /api/transcribe
 router.post('/transcribe', upload.single('audio'), async (req, res) => {
@@ -23,7 +41,7 @@ router.post('/transcribe', upload.single('audio'), async (req, res) => {
   }
 });
 
-module.exports = router;
+
 
 
 router.post('/summarize', (req, res) => {
@@ -31,3 +49,4 @@ router.post('/summarize', (req, res) => {
   const summary = transcript.slice(0, 100) + '...'; // Simple fake summary
   res.json({ summary });
 });
+module.exports = router;
