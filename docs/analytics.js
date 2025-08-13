@@ -1,4 +1,4 @@
-import { db, firestore } from './db'; // Adjust path as needed
+import { db, firestore } from './db.js'; // Adjust path as needed
 import { v4 as uuidv4 } from 'uuid';
 
 /**

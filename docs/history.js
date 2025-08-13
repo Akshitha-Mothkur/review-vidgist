@@ -1,6 +1,6 @@
 
 
-const db = require('./db');
+const db = require('./db.js');
 
 function logUserSummary(userId, videoId, summary, transcript, language) {
   const docRef = db.collection('summaries').doc(`${userId}_${videoId}`);
