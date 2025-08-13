@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/schemas/history.schema.json",
+  "title": "UserHistory",
+  "type": "object",
+  "properties": {
+    "historyId": {
+      "type": "string",
+      "description": "Unique identifier for the history record"
+    },
+    "userId": {
+      "$ref": "./user.schema.json#/properties/userId"
+    },
+    "videoId": {
+      "$ref": "./video.schema.json#/properties/videoId"
+    },
+    "actionType": {
+      "type": "string",
+      "enum": ["watched", "viewed_summary", "asked_doubt", "answered_doubt", "attempted_quiz"],
+      "description": "Type of user action"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the action occurred"
+    },
+    "durationSeconds": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Optional duration spent on the action (e.g., video watch time)"
+    },
+    "progressPercent": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Percentage of video or module completed during the session"
+    },
+    "deviceType": {
+      "type": "string",
+      "enum": ["mobile", "desktop", "tablet"],
+      "description": "Device used during the interaction"
+    },
+    "usedAI": {
+      "type": "boolean",
+      "description": "Indicates whether AI assistance was involved in the action"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional metadata for the action",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "historyId",
+    "userId",
+    "videoId",
+    "actionType",
+    "timestamp"
+  ],
+  "additionalProperties": false
+}

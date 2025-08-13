@@ -1,0 +1,179 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/schemas/user.schema.json",
+  "title": "User",
+  "type": "object",
+  "properties": {
+    "userId": {
+      "type": "string",
+      "description": "Unique identifier for the user"
+    },
+    "name": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "description": "Full name of the user"
+    },
+    "displayName": {
+      "type": ["string", "null"],
+      "minLength": 1,
+      "description": "Name shown publicly"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "User's email address"
+    },
+    "lowercaseEmail": {
+      "type": "string",
+      "pattern": "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",
+      "description": "Lowercase email for uniqueness and indexing"
+    },
+    "emailVerified": {
+      "type": "boolean",
+      "description": "Flag indicating if the user's email has been verified"
+    },
+    "passwordHash": {
+      "type": "string",
+      "minLength": 60,
+      "description": "Securely stored password hash"
+    },
+    "profilePicUrl": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "URL to the user's profile picture"
+    },
+    "roles": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "Access control roles assigned to the user"
+    },
+    "preferences": {
+      "type": "object",
+      "properties": {
+        "notifications": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "boolean",
+              "description": "Enable email notifications"
+            },
+            "inApp": {
+              "type": "boolean",
+              "description": "Enable in-app notifications"
+            }
+          },
+          "required": ["email", "inApp"],
+          "additionalProperties": false
+        },
+        "theme": {
+          "type": "string",
+          "enum": ["light", "dark"],
+          "description": "UI theme preference"
+        }
+      },
+      "required": ["notifications", "theme"],
+      "additionalProperties": false,
+      "description": "User-specific settings"
+    },
+    "socialLinks": {
+      "type": "object",
+      "properties": {
+        "twitter": {
+          "type": "string",
+          "format": "uri"
+        },
+        "linkedin": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Optional social media profile links"
+    },
+    "achievements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "badgeId": {
+            "type": "string"
+          },
+          "awardedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["badgeId", "awardedAt"],
+        "additionalProperties": false
+      },
+      "description": "Badges or milestones earned by the user"
+    },
+    "stats": {
+      "type": "object",
+      "properties": {
+        "questionsAsked": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "answersGiven": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pointsEarned": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": ["questionsAsked", "answersGiven", "pointsEarned"],
+      "additionalProperties": false,
+      "description": "Engagement and gamification metrics"
+    },
+    "level": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "User progression level calculated from points"
+    },
+    "streak": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Count of consecutive active days"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Account creation timestamp"
+    },
+    "lastLogin": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Last login timestamp"
+    },
+    "lastActivity": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Most recent meaningful interaction timestamp"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the last profile update"
+    },
+    "updatedBy": {
+      "type": "string",
+      "description": "Identifier (userId or system) that performed the last update"
+    }
+  },
+  "required": [
+    "userId",
+    "email",
+    "lowercaseEmail",
+    "emailVerified",
+    "passwordHash",
+    "roles",
+    "preferences",
+    "stats",
+    "createdAt"
+  ],
+  "additionalProperties": false
+}

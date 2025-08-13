@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/schemas/doubt.schema.json",
+  "title": "Doubt",
+  "type": "object",
+  "properties": {
+    "doubtId": {
+      "type": "string",
+      "description": "Unique identifier for the doubt"
+    },
+    "videoId": {
+      "$ref": "./video.schema.json#/properties/videoId"
+    },
+    "userId": {
+      "$ref": "./user.schema.json#/properties/userId"
+    },
+    "questionText": {
+      "type": "string",
+      "minLength": 5,
+      "description": "The actual question or doubt submitted by the user"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["open", "answered", "closed"],
+      "description": "Current status of the doubt"
+    },
+    "answerText": {
+      "type": ["string", "null"],
+      "description": "Answer provided to the doubt, if any"
+    },
+    "userAcceptedAnswer": {
+      "type": "boolean",
+      "description": "Indicates whether the user has accepted or is satisfied with the provided answer"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the doubt was created"
+    },
+    "answeredAt": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Timestamp when the doubt was answered"
+    },
+    "closedAt": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Timestamp when the doubt was closed"
+    },
+    "upvotes": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of upvotes received by the doubt"
+    },
+    "isResolved": {
+      "type": "boolean",
+      "description": "Flag indicating whether the doubt has been resolved"
+    }
+  },
+  "required": [
+    "doubtId",
+    "videoId",
+    "userId",
+    "questionText",
+    "status",
+    "createdAt",
+    "isResolved"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,148 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/schemas/video.schema.json",
+  "title": "Video",
+  "type": "object",
+  "properties": {
+    "videoId": {
+      "type": "string",
+      "description": "Unique identifier for the video"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Video title"
+    },
+    "description": {
+      "type": ["string", "null"],
+      "description": "Optional detailed description"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Playback URL for the video"
+    },
+    "thumbnailUrl": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "URL to the video thumbnail image"
+    },
+    "duration": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Length of the video in seconds"
+    },
+    "uploadedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the video was uploaded"
+    },
+    "publishedAt": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Timestamp when the video was made public"
+    },
+    "uploadedBy": {
+       "type": "string",
+      "description": "userId of the uploader"
+    },
+    "language": {
+      "type": "string",
+      "enum": ["en", "hi", "es", "fr", "zh"],
+      "description": "Primary language of the content"
+    },
+    "categories": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of category IDs for taxonomy and filtering"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Arbitrary tags for search and discovery"
+    },
+    "license": {
+      "type": "string",
+      "description": "Content usage license (e.g., CC-BY-4.0, Proprietary)"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": ["public", "unlisted", "private"],
+      "description": "Access level of the video"
+    },
+    "stats": {
+      "type": "object",
+      "properties": {
+        "views": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total view count"
+        },
+        "likes": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total like count"
+        },
+        "dislikes": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total dislike count"
+        },
+        "watchTime": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Cumulative watch time in seconds"
+        },
+        "shares": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of social shares"
+        },
+        "bookmarks": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of bookmarks by users"
+        },
+        "averageRating": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 5,
+          "description": "Average user rating from 0.0 to 5.0"
+        }
+      },
+      "required": ["views", "likes", "dislikes", "watchTime"],
+      "additionalProperties": false,
+      "description": "Engagement metrics for the video"
+    },
+    "commentsEnabled": {
+      "type": "boolean",
+      "description": "Flag to allow or disable comments"
+    },
+    "questionsCount": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of questions submitted against this video"
+    },
+    "summary": {
+      "type": ["string", "null"],
+      "description": "AI-generated summary of the video content"
+    },
+    "transcriptUrl": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "URL to the full transcript file"
+    }
+  },
+  "required": [
+    "videoId",
+    "title",
+    "url",
+    "duration",
+    "uploadedAt",
+    "uploadedBy",
+    "language",
+    "visibility",
+    "stats"
+  ],
+  "additionalProperties": false
+}
