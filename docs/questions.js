@@ -1,4 +1,4 @@
-import { db, firestore } from './db'; // Adjust path as needed
+import { db, firestore } from './db.js'; // Adjust path as needed
 
 /**
  * Logs a user-submitted question and its answer into the Firestore 'questions' collection.
