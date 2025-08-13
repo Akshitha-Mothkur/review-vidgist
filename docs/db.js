@@ -4,7 +4,7 @@ import { createRequire } from 'module';
 
 const require = createRequire(import.meta.url);
 const serviceAccount = require(
-  './reviewvidgist-firebase-adminsdk-fbsvc-7eb187d2ed.json'
+  '../reviewvidgist-firebase-adminsdk-fbsvc-7eb187d2ed.json'
 );
 
 admin.initializeApp({
