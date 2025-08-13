@@ -1,6 +1,11 @@
 // docs/db.js
 import admin from 'firebase-admin';
-import serviceAccount from './reviewvidgist-firebase-adminsdk-fbsvc-7eb187d2ed.json' assert { type: 'json' };
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+const serviceAccount = require(
+  './reviewvidgist-firebase-adminsdk-fbsvc-7eb187d2ed.json'
+);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -8,8 +13,6 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-// Wrap the FieldValue API so your analytics.js & questions.js can still call:
-//    firestore.FieldValue.serverTimestamp()
 const firestore = {
   FieldValue: {
     serverTimestamp: admin.firestore.FieldValue.serverTimestamp
