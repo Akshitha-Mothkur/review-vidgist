@@ -2,3 +2,6 @@ docs/*.json
 docs/*.json
 # Firebase Admin SDK key
 reviewvidgist-firebase-adminsdk-*.json
+node_modules/
+service-account.json
+
